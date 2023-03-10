@@ -1,221 +1,173 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.example.maven-project</groupId>
-  <artifactId>maven-project</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>Maven Project</name>
-  <description>Sample Maven project with a working, deployable site.</description>
-  <url>http://www.example.com</url>
+  <groupId>org.sonatype.nexus.examples</groupId>
+  <artifactId>simple-project</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>simple-project</name>
 
   <properties>
-    <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-  </properties>       
-         
-  <modules>
-    <module>server</module>
-    <module>webapp</module>
-  </modules>
-
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <distributionManagement>
-    <site>
-      <id>site-server</id>
-      <name>Test Project Site</name>
-      <url>file:///tmp/maven-project-site</url>
-    </site>
+    <repository>
+      <id>nexus</id>
+      <name>Nexus Releases</name>
+      <url>http://localhost:8081/nexus/service/local/staging/deploy/maven2</url>
+    </repository>
     <snapshotRepository>
-            <id>nexus</id>
-            <url>http://34.213.226.214:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>nexus</id>
-            <url>http://34.213.226.214:8081/repository/maven-releases/</url>
-        </repository>
+      <id>nexus</id>
+      <name>Nexus Snapshot</name>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>nexus</id>
+      <name>Nexus Sites</name>
+      <url>dav:http://localhost:8081/nexus/content/sites/site/</url>
+    </site>
   </distributionManagement>
-
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-site-plugin</artifactId>
+        <version>3.4</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-webdav-jackrabbit</artifactId>
+            <version>2.8</version>
+          </dependency>
+        </dependencies>
         <configuration>
-          <reportPlugins>
-            <plugin>
-              <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <artifactId>maven-pmd-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>findbugs-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>taglist-maven-plugin</artifactId>
-            </plugin>
-          </reportPlugins>
+          <locales>en,fr</locales>
         </configuration>
       </plugin>
     </plugins>
-
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.8</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>2.3.2</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.8</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-jxr-plugin</artifactId>
-          <version>2.3</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-pmd-plugin</artifactId>
-          <version>2.6</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>2.4</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>2.2.1</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.5</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.0</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>2.11</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.11</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>2.3.3</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>taglist-maven-plugin</artifactId>
-          <version>2.4</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.mortbay.jetty</groupId>
-          <artifactId>jetty-maven-plugin</artifactId>
-          <version>8.0.0.M1</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.2</version>
-      </dependency>
-
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit-dep</artifactId>
-        <version>4.10</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-core</artifactId>
-        <version>1.2.1</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-library</artifactId>
-        <version>1.2.1</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>1.8.5</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <prerequisites>
-    <maven>3.0.3</maven>
-  </prerequisites>
-
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jbundle.util</groupId>
+      <artifactId>org.jbundle.util.jbackup</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.webtestfixtures</groupId>
+      <artifactId>webtestfixtures</artifactId>
+      <version>2.0.1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.shoal</groupId>
+      <artifactId>shoal-gms-api</artifactId>
+      <version>1.5.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.util</groupId>
+      <artifactId>util-i18n</artifactId>
+      <version>1.0.22</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.grizzly</groupId>
+      <artifactId>grizzly-lzma</artifactId>
+      <version>1.9.19-beta5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-squid</artifactId>
+      <version>2.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.graniteds</groupId>
+      <artifactId>granite-openjpa</artifactId>
+      <version>2.2.0.SP1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-util</artifactId>
+      <version>7.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts.xwork</groupId>
+      <artifactId>xwork-core</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby-complete</artifactId>
+      <version>1.1RC1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty</artifactId>
+      <version>6.1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>10.1.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.facebookapi</groupId>
+      <artifactId>facebook-java-api</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-gwt</artifactId>
+      <version>12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>biz.littlej.jreqs</groupId>
+      <artifactId>jreqs-guava</artifactId>
+      <version>0.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-ehcache</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-xmlrpc-client</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode</groupId>
+      <artifactId>kiama_2.8.1</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode</groupId>
+      <artifactId>jyield</artifactId>
+      <version>0.0.6</version>
+    </dependency>
+  </dependencies>
 </project>
