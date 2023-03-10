@@ -138,9 +138,8 @@
         </plugin>
       </plugins>
     </pluginManagement>
-  </build>
-         
-  <reportPlugins>
+           
+    <reportPlugins>
             <plugin>
               <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
@@ -170,8 +169,9 @@
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>taglist-maven-plugin</artifactId>
             </plugin>
-  </reportPlugins>
-
+    </reportPlugins>
+  </build>
+         
   <dependencyManagement>
     <dependencies>
       <dependency>
